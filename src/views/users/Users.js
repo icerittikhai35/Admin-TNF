@@ -17,18 +17,9 @@ import axios from 'axios'
 
 
 
-
-const getBadge = status => {
-  switch (status) {
-    case 'Active': return 'success'
-    case 'Inactive': return 'secondary'
-    case 'Pending': return 'warning'
-    case 'Banned': return 'danger'
-    default: return 'primary'
-  }
-}
-
 const Users = () => {
+
+
   const history = useHistory()
   const queryPage = useLocation().search.match(/page=([0-9]+)/, '')
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1)
@@ -42,7 +33,19 @@ const Users = () => {
     currentPage !== page && setPage(currentPage)
   }, [currentPage, page])
 
-
+const [info, setInfo] = useState([]);
+useEffect(() => {
+  const alldatanewsFood = async () => {
+    try {
+      const response = await axios.get('http://34.126.141.128/All_user.php')
+      setInfo(response.data)
+    } catch(error) {
+      alert(error)
+    }
+  }
+  alldatanewsFood();
+}, info);
+console.log(info);
 
 
   return (
@@ -55,27 +58,18 @@ const Users = () => {
           </CCardHeader>
           <CCardBody>
             <CDataTable
-              items={usersData}
+              items={info}
               fields={[
-                { key: 'name', _classes: 'font-weight-bold' },
-                'registered', 'role', 'status'
+                { key: 'iduser', _classes: 'font-weight-bold' },
+                'username', 'password','email',
               ]}
               hover
               striped
               itemsPerPage={5}
-              activePage={page}
+     
               clickableRows
-              onRowClick={(item) => history.push(`/users/${item.id}`)}
-              scopedSlots={{
-                'status':
-                  (item) => (
-                    <td>
-                      <CBadge color={getBadge(item.status)}>
-                        {item.status}
-                      </CBadge>
-                    </td>
-                  )
-              }}
+              onRowClick={(item) => history.push(`/users/${item.iduser}`)}
+
             />
             <CPagination
               activePage={page}
