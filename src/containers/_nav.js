@@ -14,18 +14,25 @@ const _nav =  [
   },
   {
     _tag: 'CSidebarNavTitle',
-    _children: ['Theme']
+    _children: ['User']
   },
   
   {
     _tag: 'CSidebarNavItem',
     name: 'ข้อมูลผู้ใช้งาน',
-    to: '/theme/typography',
+    to: '/users',
     icon: 'cil-pencil',
   },
   {
     _tag: 'CSidebarNavTitle',
-    _children: ['Components']
+    _children: ['News']
+  },
+
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'จัดการหน้าข่าวสาร',
+    to: '/theme/typography',
+    icon: 'cil-chart-pie'
   },
   /*
   {
@@ -147,12 +154,7 @@ const _nav =  [
     ],
   },
   */
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'จัดการหน้าข่าวสาร',
-    to: '/charts',
-    icon: 'cil-chart-pie'
-  },
+
   /*
   {
     _tag: 'CSidebarNavDropdown',

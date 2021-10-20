@@ -8,80 +8,152 @@ import {
   CCol,
   CDataTable,
   CRow,
-  CPagination
+  CPagination,
+  CButton,
+  CCollapse
 } from '@coreui/react'
 
-import usersData from './UsersData'
+
 import axios from 'axios'
 
 
 
-
 const Users = () => {
-
-
+  const [details, setDetails] = useState([])
+  const [userinfo, setUserinfo] = useState([])
+  const [submit, setSubmit] = useState(false)
+  const [iduser, setUserid] = useState()
   const history = useHistory()
-  const queryPage = useLocation().search.match(/page=([0-9]+)/, '')
-  const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1)
-  const [page, setPage] = useState(currentPage)
 
-  const pageChange = newPage => {
-    currentPage !== newPage && history.push(`/users?page=${newPage}`)
-  }
 
   useEffect(() => {
-    currentPage !== page && setPage(currentPage)
-  }, [currentPage, page])
+    axios.get('http://34.126.141.128/All_user.php')
+      .then(res => {
+        setUserinfo(res.data);
+      })
+      .catch(err => {
+        alert(err)
+      })
+  }, [userinfo])
 
-const [info, setInfo] = useState([]);
-useEffect(() => {
-  const alldatanewsFood = async () => {
-    try {
-      const response = await axios.get('http://34.126.141.128/All_user.php')
-      setInfo(response.data)
-    } catch(error) {
-      alert(error)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get('http://34.126.141.128/delete_user.php', {
+          params: {
+            iduser: iduser
+          }
+        })
+        alert(res.data);
+      } catch (err) {
+        alert(err);
+      }
     }
+    if (submit) fetchData();
+  }, [submit])
+
+  const toggleDetails = (index) => {
+    const position = details.indexOf(index)
+    let newDetails = details.slice()
+    if (position !== -1) {
+      newDetails.splice(position, 1)
+    } else {
+      newDetails = [...details, index]
+    }
+    setDetails(newDetails)
   }
-  alldatanewsFood();
-}, info);
-console.log(info);
+
+
+  const fields = [
+    { key: 'iduser', _style: { width: '10%' } },
+    { key: 'username', _style: { width: '20%' } },
+    { key: 'email', _style: { width: '30%' } },
+
+
+
+
+    {
+      key: 'show_details',
+      label: 'จัดการข้อมูล',
+      _style: { width: '5%' },
+      sorter: false,
+      filter: false
+    }
+  ]
 
 
   return (
-    <CRow>
-      <CCol xl={12}>
-        <CCard>
-          <CCardHeader>
-            Users
-            <small className="text-muted"> All</small>
-          </CCardHeader>
-          <CCardBody>
-            <CDataTable
-              items={info}
-              fields={[
-                { key: 'iduser', _classes: 'font-weight-bold' },
-                'username', 'password','email',
-              ]}
-              hover
-              striped
-              itemsPerPage={5}
-     
-              clickableRows
-              onRowClick={(item) => history.push(`/users/${item.iduser}`)}
+    <CDataTable
+      items={userinfo}
+      fields={fields}
+      columnFilter
+      tableFilter
+      itemsPerPageSelect
+      itemsPerPage={10}
+      hover
+      pagination
+      scopedSlots={{
+        'show_details':
+          (item, index) => {
+            return (
+              <td className="py-2" style={{ width: 100 }}>
+                <CButton
+                  color="warning"
+                  style={{
+                    color: 'white',
+                    width: 100
 
-            />
-            <CPagination
-              activePage={page}
-              onActivePageChange={pageChange}
-              pages={5}
-              doubleArrows={false}
-              align="center"
-            />
-          </CCardBody>
-        </CCard>
-      </CCol>
-    </CRow>
+                  }}
+                  onClick={() => { toggleDetails(index) }}
+                >
+                  {details.includes(index) ? 'ซ่อน' : 'จัดการข้อมูล'}
+                </CButton>
+              </td>
+            )
+          },
+        'details':
+          (item, index) => {
+            return (
+              <CCollapse show={details.includes(index)}>
+               
+                  <tr style={{width:'100%',justifyContent:'space-around',flexDirection:'row'}}>
+                    <td >
+                      {item.url == null || item.url == "" ? (
+                        <>
+                          <h4>ยังไม่มีรูปภาพ</h4>
+                        </>
+                      ) : (
+                        <>
+                          <h4><img src={item.url} height="100" /></h4>
+                        </>
+                      )}
+                    </td>
+                    <td>
+                      <h4>Id : {item.iduser}</h4>
+                    </td>
+                    <td>
+                      <h4>Username : {item.username}</h4>
+                    </td>
+                    <td>
+                      <h4>Email : {item.email}</h4>
+                    </td>
+                    <td >
+                      <CButton size="sm" color="info" onClick={() => history.push(`/users/${item.iduser}`)}>
+                        Edit
+                      </CButton>
+                      <CButton size="sm" color="danger" className="ml-1" onClick={() => { if (window.confirm('ยืนยันการลบข้อมูล')) setSubmit(true); setUserid(item.iduser) }}>
+                        Delete
+                      </CButton>
+                    </td>
+                  </tr>
+
+
+                
+              </CCollapse>
+            )
+          }
+      }}
+    />
   )
 }
 

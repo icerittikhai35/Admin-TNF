@@ -5,33 +5,26 @@ import axios from 'axios'
 import { useHistory, useLocation } from 'react-router-dom'
 
 
-const User = ({ match }) => {
-  const [usersData, setUserinfo] = useState([]);
-  const [username, setUsername] = useState();
-  const [email, setEmail] = useState();
-  const [gender, setGender] = useState();
-  const [weight, setWeight] = useState();
-  const [height, setHeight] = useState();
-  const [target, setTarget] = useState();
-  const [experience, setExperience] = useState();
+const NewsExersice = ({ match }) => {
+  const [newsExer, setNewsinfo] = useState([]);
+  const [topic, setTopic] = useState();
+  const [material, setMaterial] = useState();
+  const [date, setDate] = useState();
   const [url, setUrl] = useState();
   const history = useHistory()
 
   useEffect(() => {
-    axios.get('http://34.126.141.128/user_detail.php', {
+    axios.get('http://34.126.141.128/newsExer_detail.php', {
       params: {
-        iduser: match.params.id
+        idnew_feed_exer: match.params.id
       }
     })
       .then(res => {
 
-        setUserinfo(res.data.all);
-        setUsername(res.data.username);
-        setEmail(res.data.email);
-        setWeight(res.data.weight);
-        setHeight(res.data.height);
-        setTarget(res.data.target);
-        setExperience(res.data.experience);
+        setNewsinfo(res.data.all);
+        setTopic(res.data.toptic);
+        setMaterial(res.data.material);
+        setDate(res.data.date);
         setUrl(res.data.url);
       })
       .catch(err => {
@@ -42,13 +35,10 @@ const User = ({ match }) => {
 
   function Submit() {
     const article = {
-      iduser: match.params.id,
-      username: username,
-      email: email,
-      weight: weight,
-      height: height,
-      target: target,
-      experience: experience,
+      idnew_feed_exer: match.params.id,
+      topic: topic,
+      material: material,
+      date: date,
       url: url
     };
     axios.post('http://34.126.141.128/editprofile_admin.php', article)
@@ -86,8 +76,8 @@ const User = ({ match }) => {
 
 
 
-  const user = usersData.find(user => user.iduser === match.params.id)
-  const userDetails = user ? Object.entries(user) :
+  const news = newsExer.find(news => news.idnew_feed_exer === match.params.id)
+  const userDetails = news ? Object.entries(news) :
     [['id', (<span><CIcon className="text-muted" name="cui-icon-ban" /> Not found</span>)]]
 
   return (
@@ -114,41 +104,27 @@ const User = ({ match }) => {
                       ชื่อผู้ใช้
                     </td>
                     <td>
-                      <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                      <input type="text" value={topic} onChange={(e) => setTopic(e.target.value)} />
                     </td>
                   </tr>
                   <tr >
                     <td width="150">
-                      อีเมล์
+                      เนื้อเรื่อง
                     </td>
                     <td>
-                      <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                      <input type="text" value={material} onChange={(e) => setMaterial(e.target.value)} />
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      เป้าหมาย
+                  <tr >
+                    <td width="150">
+                      Date
                     </td>
                     <td>
-                      <select value={target} onChange={(e) => setTarget(e.target.value)}>
-                        <option value="1">ลดไขมัน</option>
-                        <option value="2">เพิ่มกล้ามเนื้อ</option>
-                        <option value="3">เพื่อสุขภาพ</option>
-                      </select>
+                      <input type="text" value={date} onChange={(e) => setDate(e.target.value)} />
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      ประสบการณ์
-                    </td>
-                    <td>
-                      <select value={experience} onChange={(e) => setExperience(e.target.value)}>
-                        <option value="1">มือใหม่</option>
-                        <option value="2">ปานกลาง</option>
-                        <option value="3">ขั้นสูง</option>
-                      </select>
-                    </td>
-                  </tr>
+                
+                 
                   <tr>
                     <td>
                       รูปโปรไฟล์
@@ -175,4 +151,4 @@ const User = ({ match }) => {
   )
 }
 
-export default User
+export default NewsExersice
