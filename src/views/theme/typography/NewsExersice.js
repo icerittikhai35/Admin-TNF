@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useHistory, useLocation } from 'react-router-dom'
 
 
+
 const NewsExersice = ({ match }) => {
   const [newsExer, setNewsinfo] = useState([]);
   const [topic, setTopic] = useState();
@@ -19,13 +20,13 @@ const NewsExersice = ({ match }) => {
         idnew_feed_exer: match.params.id
       }
     })
-      .then(res => {
+      .then(response => {
 
-        setNewsinfo(res.data.all);
-        setTopic(res.data.toptic);
-        setMaterial(res.data.material);
-        setDate(res.data.date);
-        setUrl(res.data.url);
+        setNewsinfo(response.data.all);
+        setTopic(response.data.Topic_new_feed_exer);
+        setMaterial(response.data.Material_new_feed_exer);
+        setDate(response.data.Date);
+        setUrl(response.data.url);
       })
       .catch(err => {
         alert(err)
@@ -36,14 +37,14 @@ const NewsExersice = ({ match }) => {
   function Submit() {
     const article = {
       idnew_feed_exer: match.params.id,
-      topic: topic,
-      material: material,
-      date: date,
-      url: url
+      Topic_new_feed_exer: topic,
+      Material_new_feed_exer: material,
+      Date: date,
+      url: url,
     };
-    axios.post('http://34.126.141.128/editprofile_admin.php', article)
-      .then(res => {
-        alert(res.data);
+    axios.post('http://34.126.141.128/editNews_exer.php', article)
+      .then(response => {
+        alert(response.data);
       })
       .catch(err => {
         alert(err);
@@ -75,10 +76,8 @@ const NewsExersice = ({ match }) => {
   };
 
 
+  console.log(topic);
 
-  const news = newsExer.find(news => news.idnew_feed_exer === match.params.id)
-  const userDetails = news ? Object.entries(news) :
-    [['id', (<span><CIcon className="text-muted" name="cui-icon-ban" /> Not found</span>)]]
 
   return (
     <CRow>
@@ -101,18 +100,24 @@ const NewsExersice = ({ match }) => {
                   </tr>
                   <tr >
                     <td width="150">
-                      ชื่อผู้ใช้
+                      หัวข้อ
                     </td>
                     <td>
                       <input type="text" value={topic} onChange={(e) => setTopic(e.target.value)} />
                     </td>
                   </tr>
                   <tr >
-                    <td width="150">
+                    <td width="200">
                       เนื้อเรื่อง
                     </td>
                     <td>
-                      <input type="text" value={material} onChange={(e) => setMaterial(e.target.value)} />
+                      <textarea
+                        type="textarea"
+                        style={{ width: '100%', height: 300 }}
+                        value={material} onChange={(e) => setMaterial(e.target.value)}
+                        rows={5}
+                        cols={5}
+                      />
                     </td>
                   </tr>
                   <tr >
@@ -120,23 +125,23 @@ const NewsExersice = ({ match }) => {
                       Date
                     </td>
                     <td>
-                      <input type="text" value={date} onChange={(e) => setDate(e.target.value)} />
+                      <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
                     </td>
                   </tr>
-                
-                 
+
+
                   <tr>
                     <td>
                       รูปโปรไฟล์
                     </td>
-                    <td>
+                    <td >
                       <img src={url} width="300" />
-                      <input type="file"  onChange={(e) => uploadImage(e)} />
+                      <input type="file" onChange={(e) => uploadImage(e)} />
                     </td>
                   </tr>
                   <tr>
                     <td colSpan="2" align="center" >
-                      <CButton size="lg" color="danger" style={{ margin: 10 }} onClick={() => history.push(`/users`)}> ยกเลิก </CButton>
+                      <CButton size="lg" color="danger" style={{ margin: 10 }} onClick={() => history.push(`/theme/typography`)}> ยกเลิก </CButton>
                       <CButton size="lg" color="success" style={{ margin: 10 }} onClick={(e) => Submit(e)}> ยืนยัน </CButton>
                     </td>
                   </tr>

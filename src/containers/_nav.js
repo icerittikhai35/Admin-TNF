@@ -228,8 +228,7 @@ const _nav =  [
       text: 'NEW',
     },
   },
-  */
-  {
+   {
     _tag: 'CSidebarNavDivider'
   },
   {
@@ -264,6 +263,8 @@ const _nav =  [
       },
     ],
   },
+  */
+ 
 
   /*
   {
