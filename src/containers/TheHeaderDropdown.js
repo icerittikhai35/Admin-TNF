@@ -13,7 +13,12 @@ import { useHistory, useLocation } from 'react-router-dom'
 
 const TheHeaderDropdown = () => {
   const history = useHistory();
- 
+
+  const logout = () => {
+    reactLocalStorage.remove('idadmin')
+    history.push('/login')
+  };
+
   return (
     <CDropdown
       inNav
@@ -47,7 +52,7 @@ const TheHeaderDropdown = () => {
           Settings
         </CDropdownItem>
         <CDropdownItem divider />
-        <CDropdownItem >
+        <CDropdownItem onClick={logout}>
           <CIcon name="cil-account-logout" className="mfe-2" />
 
           Logout
