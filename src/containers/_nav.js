@@ -30,8 +30,14 @@ const _nav =  [
 
   {
     _tag: 'CSidebarNavItem',
-    name: 'จัดการหน้าข่าวสาร',
+    name: 'จัดการหน้าข่าวสารออกกำลังกาย',
     to: '/theme/typography',
+    icon: 'cil-chart-pie'
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'จัดการหน้าข่าวสารสุขภาพ',
+    to: '/theme/newsHF',
     icon: 'cil-chart-pie'
   },
   /*

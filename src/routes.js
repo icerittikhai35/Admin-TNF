@@ -35,6 +35,8 @@ const Modals = React.lazy(() => import('./views/notifications/modals/Modals'));
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'));
 const ManageNewsExersice = React.lazy(() => import('./views/theme/typography/ManageNewsExersice'));
 const NewsExersice = React.lazy(() => import('./views/theme/typography/NewsExersice'));
+const ManageNewsHF = React.lazy(() => import('./views/theme/newsHF/ManageNewsHF'));
+const NewsHF = React.lazy(() => import('./views/theme/newsHF/NewsHF'));
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'));
 const Users = React.lazy(() => import('./views/users/Users'));
 const User = React.lazy(() => import('./views/users/User'));
@@ -83,6 +85,8 @@ const routes = [
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
   { path: '/theme/typography', exact: true, name: 'Users', component: ManageNewsExersice },
   { path: '/theme/typography/:id', exact: true, name: 'User Details', component: NewsExersice },
+  { path: '/theme/newsHF', exact: true, name: 'Users', component: ManageNewsHF },
+  { path: '/theme/newsHF/:id', exact: true, name: 'User Details', component: NewsHF },
 ];
 
 export default routes;
