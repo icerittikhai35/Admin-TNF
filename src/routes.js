@@ -35,6 +35,8 @@ const Modals = React.lazy(() => import('./views/notifications/modals/Modals'));
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'));
 const ManageNewsExersice = React.lazy(() => import('./views/theme/typography/ManageNewsExersice'));
 const NewsExersice = React.lazy(() => import('./views/theme/typography/NewsExersice'));
+const insertNewsExer = React.lazy(() => import('./views/theme/typography/insert/insertNewsExer'));
+const insertnewsalbum = React.lazy(() => import('./views/theme/typography/insert/insertnewsalbum'));
 const ManageNewsHF = React.lazy(() => import('./views/theme/newsHF/ManageNewsHF'));
 const NewsHF = React.lazy(() => import('./views/theme/newsHF/NewsHF'));
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'));
@@ -83,10 +85,12 @@ const routes = [
   { path: '/widgets', name: 'Widgets', component: Widgets },
   { path: '/users', exact: true, name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
-  { path: '/theme/typography', exact: true, name: 'Users', component: ManageNewsExersice },
+  { path: '/theme/typography', exact: true, name: 'ManageNewsExersice', component: ManageNewsExersice },
+  { path: '/theme/typography/insert', exact: true, name: 'insertNewsExer', component: insertNewsExer },
   { path: '/theme/typography/:id', exact: true, name: 'User Details', component: NewsExersice },
-  { path: '/theme/newsHF', exact: true, name: 'Users', component: ManageNewsHF },
-  { path: '/theme/newsHF/:id', exact: true, name: 'User Details', component: NewsHF },
+  { path: '/theme/typography/:id/insertalbum', name: 'insert album', component: insertnewsalbum },
+  { path: '/theme/newsHF', exact: true, name: 'ManageNewsHF', component: ManageNewsHF },
+  { path: '/theme/newsHF/:id', exact: true, name: 'NewsHF', component: NewsHF },
 ];
 
 export default routes;

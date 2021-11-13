@@ -12,6 +12,7 @@ const NewsExersice = ({ match }) => {
   const [material, setMaterial] = useState();
   const [date, setDate] = useState();
   const [url, setUrl] = useState();
+  const [album, setAlbum] = useState([]);
   const history = useHistory()
 
   useEffect(() => {
@@ -27,6 +28,20 @@ const NewsExersice = ({ match }) => {
         setMaterial(response.data.Material_new_feed_exer);
         setDate(response.data.Date);
         setUrl(response.data.url);
+      })
+      .catch(err => {
+        alert(err)
+      })
+  }, [])
+
+  useEffect(() => {
+    axios.get('http://34.126.141.128/showalbumexer.php', {
+      params: {
+        id: match.params.id
+      }
+    })
+      .then(response => {
+        setAlbum(response.data);
       })
       .catch(err => {
         alert(err)
@@ -145,6 +160,50 @@ const NewsExersice = ({ match }) => {
                       <CButton size="lg" color="success" style={{ margin: 10 }} onClick={(e) => Submit(e)}> ยืนยัน </CButton>
                     </td>
                   </tr>
+                </tbody>
+
+              </table>
+            </form>
+          </CCardBody>
+        </CCard>
+      </CCol>
+
+      <CCol lg={12}>
+        <CCard>
+          <CCardHeader>
+            อัลบั้มรูป <CButton size="lg" color="info" style={{ margin: 10 }} onClick={() => history.push(`/theme/typography/${match.params.id}/insertalbum`)}> เพิ่มรูป </CButton>
+          </CCardHeader>
+          <CCardBody>
+            <form onSubmit={(e) => Submit(e)}>
+              <table className="table table-striped table-hover">
+                <tbody>
+                  <tr>
+                    <td>รูปที่ 1</td>
+                    <td>ภาพ</td>
+                    <td>แก้ไข</td>
+                    <td>ลบ</td>
+                  </tr>
+                  {album == null ? (
+                    <>
+                      <td>ไม่มีข้อมูล</td>
+                    </>
+                  ) : (
+                    <>
+                      {album.map((item, index) => (
+                        <tr>
+                          <td>{index + 1} </td>
+                          <td>
+                            <img src={item.album_exer_img} width={400} />
+                          </td>
+                          <td><CButton size="lg" color="warning" style={{ margin: 10 }} onClick={() => history.push(`/theme/typography`)}> แก้ไข </CButton></td>
+                          <td>
+                            <CButton size="lg" color="danger" style={{ margin: 10 }} onClick={(e) => Submit(e)}> ลบ </CButton>
+                          </td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
+
                 </tbody>
 
               </table>

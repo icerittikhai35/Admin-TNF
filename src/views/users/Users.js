@@ -83,40 +83,43 @@ const Users = () => {
 
 
   return (
-    <CDataTable
-      items={userinfo}
-      fields={fields}
-      columnFilter
-      tableFilter
-      itemsPerPageSelect
-      itemsPerPage={10}
-      hover
-      pagination
-      scopedSlots={{
-        'show_details':
-          (item, index) => {
-            return (
-              <td className="py-2" style={{ width: 100 }}>
-                <CButton
-                  color="warning"
-                  style={{
-                    color: 'white',
-                    width: 100
+    <>
 
-                  }}
-                  onClick={() => { toggleDetails(index) }}
-                >
-                  {details.includes(index) ? 'ซ่อน' : 'จัดการข้อมูล'}
-                </CButton>
-              </td>
-            )
-          },
-        'details':
-          (item, index) => {
-            return (
-              <CCollapse show={details.includes(index)}>
-               
-                  <tr style={{width:'100%',justifyContent:'space-around',flexDirection:'row'}}>
+
+      <CDataTable
+        items={userinfo}
+        fields={fields}
+        columnFilter
+        tableFilter
+        itemsPerPageSelect
+        itemsPerPage={10}
+        hover
+        pagination
+        scopedSlots={{
+          'show_details':
+            (item, index) => {
+              return (
+                <td className="py-2" style={{ width: 100 }}>
+                  <CButton
+                    color="warning"
+                    style={{
+                      color: 'white',
+                      width: 100
+
+                    }}
+                    onClick={() => { toggleDetails(index) }}
+                  >
+                    {details.includes(index) ? 'ซ่อน' : 'จัดการข้อมูล'}
+                  </CButton>
+                </td>
+              )
+            },
+          'details':
+            (item, index) => {
+              return (
+                <CCollapse show={details.includes(index)}>
+
+                  <tr style={{ width: '100%', justifyContent: 'space-around', flexDirection: 'row' }}>
                     <td >
                       {item.url == null || item.url == "" ? (
                         <>
@@ -148,12 +151,13 @@ const Users = () => {
                   </tr>
 
 
-                
-              </CCollapse>
-            )
-          }
-      }}
-    />
+
+                </CCollapse>
+              )
+            }
+        }}
+      />
+    </>
   )
 }
 

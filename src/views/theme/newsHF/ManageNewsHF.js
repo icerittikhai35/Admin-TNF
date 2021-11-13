@@ -80,7 +80,23 @@ export default function ManageNewsExersice({ navigation, route }) {
   ]
 
   return (
-    
+    <>
+      <tr style={{ width: 2000, alignItems: 'center', }}>
+        <td style={{ width: 2000, alignItems: 'center',paddingLeft:'88%' }}>
+          <CButton
+            color="success"
+            style={{
+              color: 'white',
+              width: 200,
+              height: 50,
+              fontWeight: 'bold'
+            }}
+          // onClick={() => history.push(`/users/typography/insert`)}
+          >
+            เพิ่มข่าวสารสุขภาพ
+          </CButton>
+        </td>
+      </tr>
       <CDataTable
         items={userinfo}
         fields={fields}
@@ -132,7 +148,7 @@ export default function ManageNewsExersice({ navigation, route }) {
                     <td>
                       <h4>ชื่อเรื่อง : {item.Topic_new_feed_exer}</h4>
                     </td>
-                   
+
                     <td >
                       <CButton size="sm" color="info" onClick={() => history.push(`/theme/typography/${item.idnew_feed_exer}`)}>
                         Edit
@@ -150,8 +166,9 @@ export default function ManageNewsExersice({ navigation, route }) {
             }
         }}
       />
+    </>
 
-    
+
   );
 }
 

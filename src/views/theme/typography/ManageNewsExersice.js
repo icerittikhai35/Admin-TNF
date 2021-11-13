@@ -80,8 +80,28 @@ export default function ManageNewsExersice({ navigation, route }) {
   ]
 
   return (
-    
+    <>
+      <tr style={{ width: 2000,alignItems:'center',}}>
+        <td style={{ width: 2000,alignItems:'center',paddingLeft:'88%'}}>
+          <CButton
+            color="success"
+            style={{
+              color: 'white',
+              width: 200,
+              height: 50,
+              fontWeight:'bold'
+              
+
+            }}
+            onClick={() => history.push(`/theme/typography/insert`)}
+          >
+        เพิ่มข่าวสารออกกำลังกาย
+            </CButton>
+        </td>
+      </tr>
+
       <CDataTable
+
         items={userinfo}
         fields={fields}
         columnFilter
@@ -95,6 +115,7 @@ export default function ManageNewsExersice({ navigation, route }) {
             (item, index) => {
               return (
                 <td className="py-2" style={{ width: 100 }}>
+
                   <CButton
                     color="warning"
                     style={{
@@ -114,6 +135,7 @@ export default function ManageNewsExersice({ navigation, route }) {
               return (
                 <CCollapse show={details.includes(index)}>
 
+
                   <tr style={{ width: '100%', justifyContent: 'space-around', flexDirection: 'row' }}>
                     <td >
                       {item.url == null || item.url == "" ? (
@@ -132,7 +154,7 @@ export default function ManageNewsExersice({ navigation, route }) {
                     <td>
                       <h4>ชื่อเรื่อง : {item.Topic_new_feed_exer}</h4>
                     </td>
-                   
+
                     <td >
                       <CButton size="sm" color="info" onClick={() => history.push(`/theme/typography/${item.idnew_feed_exer}`)}>
                         Edit
@@ -146,12 +168,25 @@ export default function ManageNewsExersice({ navigation, route }) {
 
 
                 </CCollapse>
+
               )
             }
         }}
       />
 
-    
+
+
+
+
+
+
+
+
+
+
+    </>
+
+
   );
 }
 
