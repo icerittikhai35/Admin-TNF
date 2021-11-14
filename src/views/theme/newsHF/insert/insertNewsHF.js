@@ -96,7 +96,7 @@ export default function InsertNewsHF() {
                     </td>
                     <td >
                       <img src={profile} width="300" />
-                      <input type="file" onChange={(e) => uploadImageHF(e.target.value)} />
+                      <input type="file" onChange={(e) => uploadImageHF(e)} />
                     </td>
                   </tr>
                   <tr>
