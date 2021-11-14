@@ -54,14 +54,15 @@ const TheHeader = () => {
       </CHeaderBrand>
 
       <CHeaderNav className="d-md-down-none mr-auto">
-        <CHeaderNavItem className="px-3" >
-          <CHeaderNavLink to="/dashboard">Dashboard</CHeaderNavLink>
-        </CHeaderNavItem>
+        
         <CHeaderNavItem  className="px-3">
-          <CHeaderNavLink to="/users">Users</CHeaderNavLink>
+          <CHeaderNavLink to="/users">ผู้ใช้งาน</CHeaderNavLink>
         </CHeaderNavItem>
         <CHeaderNavItem className="px-3">
-          <CHeaderNavLink to="/theme/typography">News</CHeaderNavLink>
+          <CHeaderNavLink to="/theme/typography">ข่าวสารออกกำลังกาย</CHeaderNavLink>
+        </CHeaderNavItem>
+        <CHeaderNavItem className="px-3">
+          <CHeaderNavLink to="/theme/newsHF">ข่าวสารอาหารเเละสุขภาพ</CHeaderNavLink>
         </CHeaderNavItem>
       </CHeaderNav>
 

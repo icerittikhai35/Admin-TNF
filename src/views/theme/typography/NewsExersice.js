@@ -13,7 +13,9 @@ const NewsExersice = ({ match }) => {
   const [date, setDate] = useState();
   const [url, setUrl] = useState();
   const [album, setAlbum] = useState([]);
-  const history = useHistory()
+  const history = useHistory();
+  const [submit, setSubmit] = useState(false)
+  const [idalbum_exer, setNewsid] = useState()
 
   useEffect(() => {
     axios.get('http://34.126.141.128/newsExer_detail.php', {
@@ -66,6 +68,21 @@ const NewsExersice = ({ match }) => {
       })
   }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get('http://34.126.141.128/delete_img_exer.php', {
+          params: {
+            idalbum_exer: idalbum_exer
+          }
+        })
+        alert(res.data);
+      } catch (err) {
+        alert(err);
+      }
+    }
+    if (submit) fetchData();
+  }, [submit])
 
 
 
@@ -105,20 +122,13 @@ const NewsExersice = ({ match }) => {
             <form onSubmit={(e) => Submit(e)}>
               <table className="table table-striped table-hover">
                 <tbody>
-                  <tr >
-                    <td width="150">
-                      รหัสผู้ใช้งาน
-                    </td>
-                    <td>
-                      <input type="text" value={match.params.id} disabled={true} />
-                    </td>
-                  </tr>
+                 
                   <tr >
                     <td width="150">
                       หัวข้อ
                     </td>
                     <td>
-                      <input type="text" value={topic} onChange={(e) => setTopic(e.target.value)} />
+                      <input type="text" style={{ width: '100%', }} value={topic} onChange={(e) => setTopic(e.target.value)} />
                     </td>
                   </tr>
                   <tr >
@@ -180,8 +190,8 @@ const NewsExersice = ({ match }) => {
                   <tr>
                     <td>รูปที่ 1</td>
                     <td>ภาพ</td>
-                    <td>แก้ไข</td>
-                    <td>ลบ</td>
+                    <td></td>
+                    <td></td>
                   </tr>
                   {album == null ? (
                     <>
@@ -195,9 +205,9 @@ const NewsExersice = ({ match }) => {
                           <td>
                             <img src={item.album_exer_img} width={400} />
                           </td>
-                          <td><CButton size="lg" color="warning" style={{ margin: 10 }} onClick={() => history.push(`/theme/typography`)}> แก้ไข </CButton></td>
+                          <td></td>
                           <td>
-                            <CButton size="lg" color="danger" style={{ margin: 10 }} onClick={(e) => Submit(e)}> ลบ </CButton>
+                            <CButton size="lg" color="danger" style={{ margin: 10 }} onClick={() => { if (window.confirm('ยืนยันการลบข้อมูล')) setSubmit(true); setNewsid(item.idalbum_exer) }}> ลบ </CButton>
                           </td>
                         </tr>
                       ))}

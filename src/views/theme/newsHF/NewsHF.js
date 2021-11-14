@@ -6,13 +6,16 @@ import { useHistory, useLocation } from 'react-router-dom'
 
 
 
-const NewsExersice = ({ match }) => {
+const NewsHF = ({ match }) => {
   const [newsExer, setNewsinfo] = useState([]);
   const [topic, setTopic] = useState();
   const [material, setMaterial] = useState();
   const [date, setDate] = useState();
   const [url, setUrl] = useState();
-  const history = useHistory()
+  const [album, setAlbum] = useState([]);
+  const history = useHistory();
+  const [submit, setSubmit] = useState(false)
+  const [idalbum_healthy, setNewsid] = useState()
 
   useEffect(() => {
     axios.get('http://34.126.141.128/newsHF_detail.php', {
@@ -33,16 +36,30 @@ const NewsExersice = ({ match }) => {
       })
   }, [])
 
+  useEffect(() => {
+    axios.get('http://34.126.141.128/showalbumhealthy.php', {
+      params: {
+        id: match.params.id
+      }
+    })
+      .then(response => {
+        setAlbum(response.data);
+      })
+      .catch(err => {
+        alert(err)
+      })
+  }, [])
+
 
   function Submit() {
-    const article = {
+    const articleHF = {
       idnew_feed_health_food: match.params.id,
       Topic_new_feed_health_food: topic,
       Material_new_feed_health_food: material,
       Date: date,
       url: url,
     };
-    axios.post('http://34.126.141.128/editNews_exer.php', article)
+    axios.post('http://34.126.141.128/editNews_HF.php', articleHF)
       .then(response => {
         alert(response.data);
       })
@@ -51,6 +68,21 @@ const NewsExersice = ({ match }) => {
       })
   }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get('http://34.126.141.128/delete_img_exer.php', {
+          params: {
+            idalbum_healthy: idalbum_healthy
+          }
+        })
+        alert(res.data);
+      } catch (err) {
+        alert(err);
+      }
+    }
+    if (submit) fetchData();
+  }, [submit])
 
 
 
@@ -90,20 +122,13 @@ const NewsExersice = ({ match }) => {
             <form onSubmit={(e) => Submit(e)}>
               <table className="table table-striped table-hover">
                 <tbody>
-                  <tr >
-                    <td width="150">
-                      รหัสผู้ใช้งาน
-                    </td>
-                    <td>
-                      <input type="text" value={match.params.id} disabled={true} />
-                    </td>
-                  </tr>
+                 
                   <tr >
                     <td width="150">
                       หัวข้อ
                     </td>
                     <td>
-                      <input type="text" value={topic} onChange={(e) => setTopic(e.target.value)} />
+                      <input type="text" style={{ width: '100%',}} value={topic} onChange={(e) => setTopic(e.target.value)} />
                     </td>
                   </tr>
                   <tr >
@@ -141,10 +166,54 @@ const NewsExersice = ({ match }) => {
                   </tr>
                   <tr>
                     <td colSpan="2" align="center" >
-                      <CButton size="lg" color="danger" style={{ margin: 10 }} onClick={() => history.push(`/theme/typography`)}> ยกเลิก </CButton>
+                      <CButton size="lg" color="danger" style={{ margin: 10 }} onClick={() => history.push(`/theme/newsHF`)}> ยกเลิก </CButton>
                       <CButton size="lg" color="success" style={{ margin: 10 }} onClick={(e) => Submit(e)}> ยืนยัน </CButton>
                     </td>
                   </tr>
+                </tbody>
+
+              </table>
+            </form>
+          </CCardBody>
+        </CCard>
+      </CCol>
+
+      <CCol lg={12}>
+        <CCard>
+          <CCardHeader>
+            อัลบั้มรูป <CButton size="lg" color="info" style={{ margin: 10 }} onClick={() => history.push(`/theme/newsHF/${match.params.id}/insertalbum`)}> เพิ่มรูป </CButton>
+          </CCardHeader>
+          <CCardBody>
+            <form onSubmit={(e) => Submit(e)}>
+              <table className="table table-striped table-hover">
+                <tbody>
+                  <tr>
+                    <td>รูป</td>
+                    <td>ภาพ</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  {album == null ? (
+                    <>
+                      <td>ไม่มีข้อมูล</td>
+                    </>
+                  ) : (
+                    <>
+                      {album.map((item) => (
+                        <tr>
+                        
+                          <td>
+                            <img src={item.album_healthy_img} width={400} />
+                          </td>
+                          <td></td>
+                          <td>
+                            <CButton size="lg" color="danger" style={{ margin: 10 }} onClick={() => { if (window.confirm('ยืนยันการลบข้อมูล')) setSubmit(true); setNewsid(item.idalbum_healthy) }}> ลบ </CButton>
+                          </td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
+
                 </tbody>
 
               </table>
@@ -156,4 +225,4 @@ const NewsExersice = ({ match }) => {
   )
 }
 
-export default NewsExersice
+export default NewsHF

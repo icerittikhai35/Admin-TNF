@@ -148,9 +148,7 @@ export default function ManageNewsExersice({ navigation, route }) {
                         </>
                       )}
                     </td>
-                    <td>
-                      <h4>Id : {item.idnew_feed_exer}</h4>
-                    </td>
+                   
                     <td>
                       <h4>ชื่อเรื่อง : {item.Topic_new_feed_exer}</h4>
                     </td>

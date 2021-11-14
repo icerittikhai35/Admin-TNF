@@ -16,16 +16,16 @@ import axios from 'axios';
 
 
 
-export default function ManageNewsExersice({ navigation, route }) {
+export default function ManageNewsHF({ navigation, route }) {
   const [details, setDetails] = useState([])
   const [userinfo, setUserinfo] = useState([])
   const [submit, setSubmit] = useState(false)
-  const [idnew_feed_exer, setNewsid] = useState()
+  const [idnew_feed_health_food, setNewsid] = useState()
   const history = useHistory()
 
 
   useEffect(() => {
-    axios.get('http://34.126.141.128/All_newsExer.php')
+    axios.get('http://34.126.141.128/All_newsHF.php')
       .then(res => {
         setUserinfo(res.data);
       })
@@ -37,9 +37,9 @@ export default function ManageNewsExersice({ navigation, route }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('http://34.126.141.128/delete_news_exer.php', {
+        const res = await axios.get('http://34.126.141.128/delete_newsHF.php', {
           params: {
-            idnew_feed_exer: idnew_feed_exer
+            idnew_feed_health_food: idnew_feed_health_food
           }
         })
         alert(res.data);
@@ -63,8 +63,8 @@ export default function ManageNewsExersice({ navigation, route }) {
 
 
   const fields = [
-    { key: 'idnew_feed_exer', _style: { width: '10%' } },
-    { key: 'Topic_new_feed_exer', _style: { width: '20%' } },
+    { key: 'idnew_feed_health_food', _style: { width: '10%' } },
+    { key: 'Topic_new_feed_health_food', _style: { width: '20%' } },
 
 
 
@@ -91,7 +91,7 @@ export default function ManageNewsExersice({ navigation, route }) {
               height: 50,
               fontWeight: 'bold'
             }}
-          // onClick={() => history.push(`/users/typography/insert`)}
+           onClick={() => history.push(`/theme/newsHF/insert`)}
           >
             เพิ่มข่าวสารสุขภาพ
           </CButton>
@@ -142,25 +142,23 @@ export default function ManageNewsExersice({ navigation, route }) {
                         </>
                       )}
                     </td>
+                   
                     <td>
-                      <h4>Id : {item.idnew_feed_exer}</h4>
-                    </td>
-                    <td>
-                      <h4>ชื่อเรื่อง : {item.Topic_new_feed_exer}</h4>
+                      <h4>ชื่อเรื่อง : {item.Topic_new_feed_health_food}</h4>
                     </td>
 
                     <td >
-                      <CButton size="sm" color="info" onClick={() => history.push(`/theme/typography/${item.idnew_feed_exer}`)}>
+                      <CButton size="sm" color="info" onClick={() => history.push(`/theme/newsHF/${item.idnew_feed_health_food}`)}>
                         Edit
                       </CButton>
-                      <CButton size="sm" color="danger" className="ml-1" onClick={() => { if (window.confirm('ยืนยันการลบข้อมูล')) setSubmit(true); setNewsid(item.idnew_feed_exer) }}>
+                      <CButton size="sm" color="danger" className="ml-1" onClick={() => { if (window.confirm('ยืนยันการลบข้อมูล')) setSubmit(true); setNewsid(item.idnew_feed_health_food) }}>
                         Delete
                       </CButton>
                     </td>
                   </tr>
 
 
-
+ 
                 </CCollapse>
               )
             }

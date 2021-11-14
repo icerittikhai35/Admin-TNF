@@ -25,7 +25,6 @@ const ButtonDropdowns = React.lazy(() => import('./views/buttons/button-dropdown
 const ButtonGroups = React.lazy(() => import('./views/buttons/button-groups/ButtonGroups'));
 const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'));
 const Charts = React.lazy(() => import('./views/charts/Charts'));
-const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'));
 const CoreUIIcons = React.lazy(() => import('./views/icons/coreui-icons/CoreUIIcons'));
 const Flags = React.lazy(() => import('./views/icons/flags/Flags'));
 const Brands = React.lazy(() => import('./views/icons/brands/Brands'));
@@ -35,7 +34,8 @@ const Modals = React.lazy(() => import('./views/notifications/modals/Modals'));
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'));
 const ManageNewsExersice = React.lazy(() => import('./views/theme/typography/ManageNewsExersice'));
 const NewsExersice = React.lazy(() => import('./views/theme/typography/NewsExersice'));
-const insertNewsExer = React.lazy(() => import('./views/theme/typography/insert/insertNewsExer'));
+const InsertNewsExer = React.lazy(() => import('./views/theme/typography/insert/insertNewsExer'));
+const InsertNewsHF = React.lazy(() => import('./views/theme/newsHF/insert/insertNewsHF'));
 const insertnewsalbum = React.lazy(() => import('./views/theme/typography/insert/insertnewsalbum'));
 const ManageNewsHF = React.lazy(() => import('./views/theme/newsHF/ManageNewsHF'));
 const NewsHF = React.lazy(() => import('./views/theme/newsHF/NewsHF'));
@@ -46,7 +46,7 @@ const User = React.lazy(() => import('./views/users/User'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
-  { path: '/dashboard', name: 'Dashboard', component: Dashboard },
+  
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', component: Colors },
 
@@ -86,7 +86,8 @@ const routes = [
   { path: '/users', exact: true, name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
   { path: '/theme/typography', exact: true, name: 'ManageNewsExersice', component: ManageNewsExersice },
-  { path: '/theme/typography/insert', exact: true, name: 'insertNewsExer', component: insertNewsExer },
+  { path: '/theme/typography/insert', exact: true, name: 'insertNewsExer', component: InsertNewsExer },
+  { path: '/theme/newsHF/insert', exact: true, name: 'insertNewsHF', component: InsertNewsHF },
   { path: '/theme/typography/:id', exact: true, name: 'User Details', component: NewsExersice },
   { path: '/theme/typography/:id/insertalbum', name: 'insert album', component: insertnewsalbum },
   { path: '/theme/newsHF', exact: true, name: 'ManageNewsHF', component: ManageNewsHF },

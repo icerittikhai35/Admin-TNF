@@ -6,20 +6,20 @@ import { useHistory, useLocation } from 'react-router-dom'
 
 
 
-export default function InsertNewsExer() {
+export default function InsertNewsHF() {
   const [header, setHeader] = useState();
   const [descrip, setDescrip] = useState();
   const [date, setDate] = useState();
   const [profile, setProfile] = useState();
 
   function Submit() {
-    const article = {
+    const articleHF = {
       header: header,
       descrip: descrip,
       date: date,
       profile: profile,
     };
-    axios.post('http://34.126.141.128/insertnews.php', article)
+    axios.post('http://34.126.141.128/insertnewsHF.php', articleHF)
       .then(res => {
         alert(res.data);
       })
@@ -27,8 +27,7 @@ export default function InsertNewsExer() {
         alert(err);
       })
   }
-
-  const uploadImage = async (e) => {
+  const uploadImageHF = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
     setProfile(base64);
@@ -97,7 +96,7 @@ export default function InsertNewsExer() {
                     </td>
                     <td >
                       <img src={profile} width="300" />
-                      <input type="file" onChange={(e) => uploadImage(e)} />
+                      <input type="file" onChange={(e) => uploadImageHF(e.target.value)} />
                     </td>
                   </tr>
                   <tr>
@@ -113,7 +112,7 @@ export default function InsertNewsExer() {
           </CCardBody>
         </CCard>
       </CCol>
-      
+
     </CRow>
   )
 }

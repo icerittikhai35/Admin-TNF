@@ -40,7 +40,7 @@ const Login = () => {
       .then(res => {
         if (res.data.onLogin == 'true') {
           reactLocalStorage.set('idadmin', res.data.idadmin)
-          history.push('/dashboard')
+          history.push('/users') 
         } else {
           alert(res.data);
         }
