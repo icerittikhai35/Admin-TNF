@@ -65,7 +65,7 @@ const Users = () => {
 
 
   const fields = [
-    { key: 'iduser', _style: { width: '10%' } },
+
     { key: 'username', _style: { width: '20%' } },
     { key: 'email', _style: { width: '30%' } },
 
@@ -131,9 +131,7 @@ const Users = () => {
                         </>
                       )}
                     </td>
-                    <td>
-                      <h4>Id : {item.iduser}</h4>
-                    </td>
+                    
                     <td>
                       <h4>Username : {item.username}</h4>
                     </td>

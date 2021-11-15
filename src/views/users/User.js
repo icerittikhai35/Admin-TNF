@@ -101,20 +101,13 @@ const User = ({ match }) => {
             <form onSubmit={(e) => Submit(e)}>
               <table className="table table-striped table-hover">
                 <tbody>
-                  <tr >
-                    <td width="150">
-                      รหัสผู้ใช้งาน
-                    </td>
-                    <td>
-                      <input type="text" value={match.params.id} disabled={true} />
-                    </td>
-                  </tr>
+                
                   <tr >
                     <td width="150">
                       ชื่อผู้ใช้
                     </td>
                     <td>
-                      <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                      <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} disabled={true}/>
                     </td>
                   </tr>
                   <tr >
